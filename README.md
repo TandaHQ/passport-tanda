@@ -1,33 +1,18 @@
-# passport-oauth2
+# passport-tanda
+> Tanda OAuth2.0 Strategy for [Passport](http://passportjs.org/).
 
-[![Build](https://img.shields.io/travis/jaredhanson/passport-oauth2.svg)](https://travis-ci.org/jaredhanson/passport-oauth2)
-[![Coverage](https://img.shields.io/coveralls/jaredhanson/passport-oauth2.svg)](https://coveralls.io/r/jaredhanson/passport-oauth2)
-[![Quality](https://img.shields.io/codeclimate/github/jaredhanson/passport-oauth2.svg?label=quality)](https://codeclimate.com/github/jaredhanson/passport-oauth2)
-[![Dependencies](https://img.shields.io/david/jaredhanson/passport-oauth2.svg)](https://david-dm.org/jaredhanson/passport-oauth2)
-
-
-General-purpose OAuth 2.0 authentication strategy for [Passport](http://passportjs.org/).
-
-This module lets you authenticate using OAuth 2.0 in your Node.js applications.
-By plugging into Passport, OAuth 2.0 authentication can be easily and
-unobtrusively integrated into any application or framework that supports
-[Connect](http://www.senchalabs.org/connect/)-style middleware, including
-[Express](http://expressjs.com/).
-
-Note that this strategy provides generic OAuth 2.0 support.  In many cases, a
-provider-specific strategy can be used instead, which cuts down on unnecessary
-configuration, and accommodates any provider-specific quirks.  See the
-[list](https://github.com/jaredhanson/passport/wiki/Strategies) for supported
-providers.
-
-Developers who need to implement authentication against an OAuth 2.0 provider
-that is not already supported are encouraged to sub-class this strategy.  If you
-choose to open source the new provider-specific strategy, please add it to the
-list so other people can find it.
+For more information, see [passort-oauth2](https://github.com/jaredhanson/passport-oauth2).  Only
+ minor edits have been made to get it working with Tanda.
 
 ## Install
 
-    $ npm install passport-oauth2
+```sh
+$ yarn add passport-tanda
+```
+or
+```sh
+$ npm install passport-tanda
+```
 
 ## Usage
 
@@ -40,9 +25,7 @@ requires a `verify` callback, which receives an access token and profile,
 and calls `cb` providing a user.
 
 ```js
-passport.use(new OAuth2Strategy({
-    authorizationURL: 'https://www.example.com/oauth2/authorize',
-    tokenURL: 'https://www.example.com/oauth2/token',
+passport.use(new TandaStrategy({
     clientID: EXAMPLE_CLIENT_ID,
     clientSecret: EXAMPLE_CLIENT_SECRET,
     callbackURL: "http://localhost:3000/auth/example/callback"
@@ -75,47 +58,30 @@ app.get('/auth/example/callback',
   });
 ```
 
-## Related Modules
+### Profile
 
-- [passport-oauth1](https://github.com/jaredhanson/passport-oauth1) — OAuth 1.0 authentication strategy
-- [passport-http-bearer](https://github.com/jaredhanson/passport-http-bearer) — Bearer token authentication strategy for APIs
-- [OAuth2orize](https://github.com/jaredhanson/oauth2orize) — OAuth 2.0 authorization server toolkit
+The profile provided to the callback in `passport.use()` is based on the standard 
+[passport profile](http://passportjs.org/docs/profile).  The only field missing is `emails`, as 
+these are not available from `/users/me` on Tanda.
 
-## Contributing
+Additionally, the following *bonus* fields are available.
 
-#### Tests
-
-The test suite is located in the `test/` directory.  All new features are
-expected to have corresponding test cases.  Ensure that the complete test suite
-passes by executing:
-
-```bash
-$ make test
+```js
+const profile = {
+  // ...standard passport profile
+  timeZone,
+  utcOffset,
+  organisation,
+  organisation_id,
+  organisations,
+  permissions,
+  validSubscription,
+  userIds,
+  updatedAt,
+}
 ```
 
-#### Coverage
-
-All new feature development is expected to have test coverage.  Patches that
-increse test coverage are happily accepted.  Coverage reports can be viewed by
-executing:
-
-```bash
-$ make test-cov
-$ make view-cov
-```
-
-## Support
-
-#### Funding
-
-This software is provided to you as open source, free of charge.  The time and
-effort to develop and maintain this project is dedicated by [@jaredhanson](https://github.com/jaredhanson).
-If you (or your employer) benefit from this project, please consider a financial
-contribution.  Your contribution helps continue the efforts that produce this
-and other open source software.
-
-Funds are accepted via [PayPal](https://paypal.me/jaredhanson), [Venmo](https://venmo.com/jaredhanson),
-and [other](http://jaredhanson.net/pay) methods.  Any amount is appreciated.
+For more info on these, see [the documentation](https://my.tanda.co/api/v2/documentation#general-current-user-get).
 
 ## License
 
