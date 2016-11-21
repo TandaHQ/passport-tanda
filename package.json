@@ -1,7 +1,7 @@
 {
-  "name": "passport-oauth2",
-  "version": "1.3.0",
-  "description": "OAuth 2.0 authentication strategy for Passport.",
+  "name": "passport-tanda",
+  "version": "1.0.0",
+  "description": "Tanda OAuth2.0 authentication strategy for Passport.",
   "keywords": [
     "passport",
     "auth",
@@ -10,13 +10,22 @@
     "authz",
     "authorization",
     "oauth",
-    "oauth2"
+    "oauth2",
+    "tanda",
+    "payroll",
+    "rosters"
   ],
   "author": {
     "name": "Jared Hanson",
     "email": "jaredhanson@gmail.com",
     "url": "http://www.jaredhanson.net/"
   },
+  "contributors": [
+    {
+      "name": "David Buchan-Swanson",
+      "email": "david@tanda.co"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/jaredhanson/passport-oauth2.git"
